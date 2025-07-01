@@ -1,6 +1,13 @@
 @tailwind base;
+@layer base {
+  img {
+    @apply inline-block
+  }
+}
 @tailwind components;
 @tailwind utilities;
+
+@import url('/src/fonts//PretendardVariable.woff2');
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -8,26 +15,210 @@
   --background-end-rgb: 255, 255, 255;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+*:not(.scrollbar):not(.ag-grid-container):not(.ag-grid-container *)::-webkit-scrollbar {
+  display: none; /* scrollbar 클래스를 가진 요소는 기본적으로 보이도록 설정 */
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+:root {
+    /* Black */
+    --black: #20202D;
+    --black-50: #F8F8F8;
+    --black-100: #F4F4F6;
+    --black-200: #E1E1E4;
+    --black-300: #D1D1D4;
+    --black-400: #BBBBBF;
+    --black-500: #AAAAAF;
+    --black-600: #99999E;
+    --black-700: #77777C;
+    --black-800: #55555A;
+    --black-900: #20202D;
+  
+    /* Theme */
+    --theme: #F67E3B;
+    --theme-50: #FFF9F8;
+    --theme-100: #FFE6D9;
+    --theme-200: #FFD5BE;
+    --theme-300: #FFBD98;
+    --theme-400: #FF9F69;
+    --theme-500: #F67E3B;
+    --theme-600: #DB6A2C;
+    --theme-700: #BF4B0C;
+    --theme-800: #903503;
+    --theme-900: #542105;
+  
+    /* D */
+    --d: #eb5b5b;
+    --d-50: #fef7f7;
+    --d-100: #ffe9e9;
+    --d-200: #ffcece;
+    --d-300: #fca6a6;
+    --d-400: #f87a7a;
+    --d-500: #ed6f6f;
+    --d-600: #de3e3e;
+    --d-700: #bc2d2d;
+    --d-800: #922424;
+    --d-900: #741313;
+  
+    /* I */
+    --i: #eeb72b;
+    --i-50: #fffcf4;
+    --i-100: #fff4d8;
+    --i-200: #ffe9b4;
+    --i-300: #ffe092;
+    --i-400: #f8cd61;
+    --i-500: #eeb72b;
+    --i-600: #d9a726;
+    --i-700: #b78d21;
+    --i-800: #956f0e;
+    --i-900: #6c5007;
+  
+    /* S */
+    --s: #37a155;
+    --s-50: #f5fbf7;
+    --s-100: #dafde4;
+    --s-200: #a5eeb9;
+    --s-300: #85d49b;
+    --s-400: #5ac077;
+    --s-500: #37a155;
+    --s-600: #238940;
+    --s-700: #196e31;
+    --s-800: #0c4c1e;
+    --s-900: #023711;
+  
+    /* C */
+    --c: #596fc6;
+    --c-50: #f6f7fb;
+    --c-100: #dae1ff;
+    --c-200: #bdcafc;
+    --c-300: #8fa1e7;
+    --c-400: #7388db;
+    --c-500: #596fc6;
+    --c-600: #4057b2;
+    --c-700: #2e4396;
+    --c-800: #293874;
+    --c-900: #18224a;
+
+    --o: '#7C888C';
+  
+    /* blueTone */
+    --bluetone: #5277d9;
+    --bluetone-50: #f6f9ff;
+    --bluetone-100: #eaf0ff;
+    --bluetone-200: #c2d0f4;
+    --bluetone-300: #bbceff;
+    --bluetone-400: #92b0fd;
+    --bluetone-500: #5277d9;
+    --bluetone-600: #395ab2;
+    --bluetone-700: #2d4992;
+    --bluetone-800: #324475;
+    --bluetone-900: #1f2c4c;
+  
+    /* redTone */
+    --redtone: #dd4b4b;
+    --redtone-50: #fff5f5;
+    --redtone-100: #ffe9e9;
+    --redtone-200: #ffcaca;
+    --redtone-300: #ffa3a3;
+    --redtone-400: #ff8282;
+    --redtone-500: #dd4b4b;
+    --redtone-600: #c83131;
+    --redtone-700: #9e0000;
+    --redtone-800: #770000;
+    --redtone-900: #4f0000;
+  
+    /* Type */
+    --type-10: #EB5B5B;
+    --type-12: #E88383;
+    --type-13: #ED995F;
+    --type-14: #B560BF;
+    --type-16: #FCAA96;
+    --type-17: #E67978;
+    --type-18: #E485D1;
+    --type-20: #EEB72B;
+    --type-23: #C2DF13;
+    --type-24: #EEB72B;
+    --type-25: #FFBE85;
+    --type-27: #DADA38;
+    --type-28: #EEAF29;
+    --type-30: #37A155;
+    --type-34: #4BC3AC;
+    --type-35: #40BF92;
+    --type-36: #B2DB42;
+    --type-38: #40BF92;
+    --type-40: #596FC6;
+    --type-45: #8C74D4;
+    --type-46: #7B90D5;
+    --type-47: #409F9E;
+    --type-50: #ED7D79;
+    --type-56: #F69678;
+    --type-57: #FF9797;
+    --type-58: #CA8AE1;
+    --type-60: #FAD792;
+    --type-67: #B7E27A;
+    --type-68: #F9D68F;
+    --type-70: #6BD181;
+    --type-78: #68DEC7;
+    --type-80: #98B0FF;
+    --type-anonymous: #B5B5B5;
+    --type-99: #7C888C;
+  
+    /* Casual */
+    --casual: #f67e3b;
+    --casual-50: #fff9f8;
+    --casual-100: #ffe6d9;
+    --casual-200: #ffd5be;
+    --casual-300: #ffbd98;
+    --casual-400: #ff9f69;
+    --casual-500: #f67e3b;
+    --casual-600: #db6a2c;
+    --casual-700: #bf4b0c;
+    --casual-800: #903503;
+    --casual-900: #542105;
+  
+    /* Pro */
+    --pro: #a465ff;
+    --pro-50: #fcfaff;
+    --pro-100: #f5eeff;
+    --pro-200: #e2ceff;
+    --pro-300: #d3b5ff;
+    --pro-400: #ba8aff;
+    --pro-500: #a465ff;
+    --pro-600: #7f41d7;
+    --pro-700: #6532ae;
+    --pro-800: #46217b;
+    --pro-900: #34195c;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.scrollbar::-webkit-scrollbar {
+  background-color: transparent;
+  width: 0.25rem;
+  height: 0.25rem;
+
 }
+.scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.1) !important;
+  border-radius: 10rem;
+  cursor: grab;
+}
+.scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0,0,0,0.9) !important;
+  width: 0.5rem !important;
+  height: 0.5rem !important;
+}
+.scrollbar::-webkit-scrollbar-thumb:active {
+  cursor: grabbing;
+}
+
+* {outline: none;}
+
+.scroll-lock {
+  overflow: hidden;
+}
+
+/* ag-grid */
+.ag-body-viewport {
+  padding-bottom: 1rem;
+  /* padding-right: 1rem; */
+}
+
+

@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+@media print {
+	body {
+		margin: 0 !important;
+	}
+}
+
+.main-container {
+	font-family: 'pretendard';
+	width: 100%;
+	max-width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.editor-container{
+	width: 100%;
+}
+.ck-content {
+	font-family: 'pretendard';
+	line-height: 1.6;
+	word-break: break-word;
+	height: 100%;
+	min-height: 50vh;
+	width: 100%;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}
+
+.editor-container_classic-editor .editor-container__editor {
+	/* min-width: 795px;
+	max-width: 795px; */
+	width: 100%;
+}
+
+.ck .ck-sticky-panel .ck-sticky-panel__content_sticky {
+    position: static !important;
+}
+.ck .ck-sticky-panel__placeholder {
+	height: 0 !important;
+}
+
+
+/* ms-cmark-node 요소 스타일 */
+ms-cmark-node {
+	display: contents;
+	box-sizing: border-box;
+}
+
+/* 외부에서 붙여넣기된 HTML 요소들의 기본 스타일 */
+.ck-content ms-cmark-node,
+.ck-content [class*="ng-star-inserted"] {
+	display: contents;
+	box-sizing: border-box;
+}
+
+.ck-content [class*="ng-star-inserted"] span,
+.ck-content [class*="ng-star-inserted"] strong {
+	display: inline;
+	box-sizing: border-box;
+}
+
+.ck-content p {
+	margin: 0.5em 0;
+}
+
+.ck-content br {
+	display: block;
+	content: "";
+	margin: 0.2em 0;
+}
+
+/* 미리보기 모드에서도 줄바꿈 보존 */
+.p-4 {
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}
+
+.p-4 p {
+	margin: 0.5em 0;
+}
+
+.p-4 br {
+	display: block;
+	content: "";
+	margin: 0.2em 0;
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS vs JavaScript 우선순위 테스트</title>
+    <style>
+        .test-element {
+            color: red !important;
+            background-color: yellow !important;
+            font-size: 20px !important;
+        }
+    </style>
+</head>
+<body>
+    <div id="testElement" class="test-element">
+        이 텍스트의 색상과 스타일을 확인해보세요
+    </div>
+
+    <button onclick="applyJavaScriptStyle()">JavaScript 스타일 적용</button>
+    <button onclick="resetStyle()">스타일 초기화</button>
+
+    <script>
+        function applyJavaScriptStyle() {
+            const element = document.getElementById('testElement');
+            
+            // JavaScript로 인라인 스타일 적용
+            element.style.color = 'blue';
+            element.style.backgroundColor = 'lightgreen';
+            element.style.fontSize = '30px';
+            
+            console.log('JavaScript 스타일 적용됨');
+            console.log('현재 색상:', element.style.color);
+        }
+
+        function resetStyle() {
+            const element = document.getElementById('testElement');
+            
+            // 인라인 스타일 제거
+            element.style.color = '';
+            element.style.backgroundColor = '';
+            element.style.fontSize = '';
+            
+            console.log('스타일 초기화됨');
+        }
+
+        // 페이지 로드 시 현재 스타일 확인
+        window.onload = function() {
+            const element = document.getElementById('testElement');
+            const computedStyle = window.getComputedStyle(element);
+            
+            console.log('초기 상태:');
+            console.log('색상:', computedStyle.color);
+            console.log('배경색:', computedStyle.backgroundColor);
+            console.log('폰트 크기:', computedStyle.fontSize);
+        };
+    </script>
+</body>
+</html> 
