@@ -1,0 +1,12 @@
+# .dockerignore
+
+# 이 한 줄이 모든 문제를 해결합니다.
+node_modules
+
+# 기타 개발용 파일이나 민감한 정보가 이미지에 포함되지 않도록 합니다.
+.env
+Dockerfile
+.dockerignore
+npm-debug.log
+.git
+.gitignore

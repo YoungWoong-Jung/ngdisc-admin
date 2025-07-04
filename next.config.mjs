@@ -16,8 +16,9 @@ const nextConfig = {
     experimental: {
         instrumentationHook: true
     },
-    assetPrefix: '/admin',               //<- asset Prefix 추가 3000포트의 disc_client와 혼동되지 않도록
+    assetPrefix: '/admin',               //<- asset Prefix 추가 3000포트의  disc_client와 혼동되지 않도록
     basePath: '/admin'
+    // output 제거 - 기본 서버 모드 사용
 };
 
 export default nextConfig;

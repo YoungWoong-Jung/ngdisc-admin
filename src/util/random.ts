@@ -4,6 +4,9 @@ export default class Random {
     constructor() {}
     
     static number(min: number, max: number) {
+        if (typeof window === 'undefined') {
+            return Math.floor((min + max) / 2);
+        }
         const random = Math.floor(Math.random() * (max - min + 1)) + min;
         return random;
     }
@@ -13,6 +16,10 @@ export default class Random {
         upperCase?: boolean;
         number?: boolean
     }) {            
+        if (typeof window === 'undefined') {
+            return 'temp' + length;
+        }
+        
         const lowerCase = 'abcdefghijklmnopqrstuvwxyz'
         const upperCase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
         const number = '0123456789'
