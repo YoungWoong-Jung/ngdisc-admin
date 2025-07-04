@@ -17,7 +17,12 @@ const nextConfig = {
         instrumentationHook: true
     },
     assetPrefix: '/admin',               //<- asset Prefix 추가 3000포트의  disc_client와 혼동되지 않도록
-    basePath: '/admin'
+    basePath: '/admin',
+    watchOptions: {
+        poll: 1000,
+        aggregateTimeout: 300,
+        ignored: ['node_modules', 'dist', 'build', 'public',]
+    }
     // output 제거 - 기본 서버 모드 사용
 };
 
