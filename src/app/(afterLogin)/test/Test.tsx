@@ -107,7 +107,6 @@ export default function Test(){
     }
 
     const saveTestUpdates = async () => {
-        console.log(testData)
         const createRows: any[] = []
         const updateRows: any[] = []
         const deleteRows: any[] = []

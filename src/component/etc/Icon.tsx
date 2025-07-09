@@ -17,7 +17,7 @@ export default function Icon({
     style?: {[key: string] : string}
 }) {
 
-    const url = `icons/${name}.svg#${name}`
+    const url = `/admin/icons/${name}.svg#${name}`
 
     const handleError = (e: any) => {
         console.error(`Failed to load SVG: ${url}`, e);

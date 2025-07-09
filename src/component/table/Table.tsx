@@ -1,8 +1,9 @@
 'use client'
 
 import { AgGridReact } from "ag-grid-react"
-import { ColDef, ModuleRegistry, ClientSideRowModelModule, RowSelectionModule, PaginationModule, TextEditorModule, DateEditorModule, LargeTextEditorModule, SelectEditorModule, ValidationModule, RowApiModule, ClientSideRowModelApiModule, UndoRedoEditModule, DateFilterModule, TextFilterModule, ColumnAutoSizeModule, CellEvent, RowValueChangedEvent, CellValueChangedEvent, RowStyleModule, RowClassParams, RowDataUpdatedEvent, ModelUpdatedEvent, CustomEditorModule, ColumnApiModule } from "ag-grid-community"
+import { ColDef, ModuleRegistry, ClientSideRowModelModule, RowSelectionModule, PaginationModule, TextEditorModule, DateEditorModule, LargeTextEditorModule, SelectEditorModule, ValidationModule, RowApiModule, ClientSideRowModelApiModule, UndoRedoEditModule, DateFilterModule, TextFilterModule, ColumnAutoSizeModule, CellEvent, RowValueChangedEvent, CellValueChangedEvent, RowStyleModule, RowClassParams, RowDataUpdatedEvent, ModelUpdatedEvent, CustomEditorModule, ColumnApiModule, ScrollApiModule, CheckboxCellEditor } from "ag-grid-community"
 import { useEffect, useMemo, useRef, useState, forwardRef, useImperativeHandle, useCallback } from "react";
+import dynamic from 'next/dynamic';
 import { TableTheme01 } from "./TableTheme";
 import ContextMenu, { ContextMenuItem, useContextMenu } from "../gnb/ContextMenu";
 import Label from "../lnb/Label";
@@ -11,31 +12,34 @@ import { isEqual } from "lodash";
 import CustomSelectCellEditor from "./CustomSelectCellEditor";
 import CustomDateCellEditor from "./CustomDateCellEditor";
 import CustomLongTextCellEditor from "./CustomLongTextCellEditor";
-import CustomPostCellEditor from "./CustomPostCellEditor";
 import CustomTextCellEditor from "./customTextCellEditor";
 import CustomImageCellEditor from "./CustomImageCellEditor";
 import CustomNumberCellEditor from "./customNumberCellEditor";
 
-ModuleRegistry.registerModules([
-    ClientSideRowModelModule, 
-    RowSelectionModule, 
-    PaginationModule,
-    TextEditorModule,
-    DateEditorModule,
-    LargeTextEditorModule,
-    SelectEditorModule,
-    ValidationModule,
-    RowApiModule,
-    ClientSideRowModelModule,
-    ClientSideRowModelApiModule,
-    UndoRedoEditModule,
-    DateFilterModule,
-    TextFilterModule,
-    ColumnAutoSizeModule,
-    RowStyleModule,
-    CustomEditorModule,
-    ColumnApiModule,
-]);
+// 클라이언트 사이드에서만 모듈 등록
+if (typeof window !== 'undefined') {
+    ModuleRegistry.registerModules([
+        ClientSideRowModelModule, 
+        RowSelectionModule, 
+        PaginationModule,
+        TextEditorModule,
+        DateEditorModule,
+        LargeTextEditorModule,
+        SelectEditorModule,
+        ValidationModule,
+        RowApiModule,
+        ClientSideRowModelModule,
+        ClientSideRowModelApiModule,
+        UndoRedoEditModule,
+        DateFilterModule,
+        TextFilterModule,
+        ColumnAutoSizeModule,
+        RowStyleModule,
+        CustomEditorModule,
+        ColumnApiModule,
+        ScrollApiModule,
+    ]);
+}
 
 export type TableRow<T> = T & {
     _id: string | number;
@@ -70,6 +74,7 @@ const Table = forwardRef<AgGridReact, {
     onCellClicked?: (params: any) => void;
     children?: React.ReactNode;
     deletable?: boolean;
+    onScroll?: (params: any) => void;
 }>(({
     keyColumn,
     data = [],
@@ -89,6 +94,7 @@ const Table = forwardRef<AgGridReact, {
     onCellClicked,
     children,
     deletable = true,
+    onScroll,
 }, ref) => {
 
     const tableRef = useRef<AgGridReact>(null);
@@ -281,8 +287,32 @@ const Table = forwardRef<AgGridReact, {
         }
     };
 
-
-    if(!isMounted) return ;
+    // 클라이언트 사이드에서만 렌더링
+    if (!isMounted) {
+        return (
+            <div className="w-full h-full flex flex-col">
+                {
+                    (label || children ) && <>
+                        <div className="grid grid-cols-[auto_1fr] items-center mb-1 px-2">
+                            {
+                                label &&
+                                <Label className="col-start-1">{label}</Label>
+                            }
+                            {
+                                children && 
+                                <div className="flex items-center gap-2 col-start-2 justify-end">
+                                    {children}
+                                </div>
+                            }
+                        </div>
+                    </>
+                }
+                <div className={`min-h-[160px] flex-1 h-full w-full ag-grid-container border rounded-xl overflow-hidden border-black-200 ${className} flex items-center justify-center`}>
+                    <div className="text-gray-500">로딩 중...</div>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="w-full h-full flex flex-col">
@@ -331,6 +361,7 @@ const Table = forwardRef<AgGridReact, {
                     singleClickEdit={true}
                     onCellClicked={onCellClicked}
                     stopEditingWhenCellsLoseFocus={true}
+                    onBodyScroll={onScroll}
                 />
                 {
                     contextMenuConfig.menus.length > 0 &&
@@ -378,7 +409,11 @@ const CustomCellEditor = (colDef: ColDef) => {
         case 'date':
                 return CustomDateCellEditor
         case 'post':
-            return CustomPostCellEditor
+            // dynamic import 적용
+            return dynamic(() => import('./CustomPostCellEditor'), {
+                ssr: false,
+                loading: () => <div></div>
+            })
         case 'image':
             return CustomImageCellEditor
         case 'number':

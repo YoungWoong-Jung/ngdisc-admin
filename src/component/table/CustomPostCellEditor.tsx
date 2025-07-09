@@ -1,3 +1,5 @@
+'use client'
+
 import 'ckeditor5/ckeditor5.css';
 import './CustomPostCellEditor.css'
 import HTMLReactParser from "html-react-parser/lib/index"
@@ -390,7 +392,7 @@ export default function CustomPostCellEditor({
 	const [editing, setEditing] = useState(false);
 
 	return (
-		<div>
+		<div className='custom-post-cell-editor'>
 			<div className='fixed h-screen w-[640px] top-0 right-0 p-6'>
 				<div className='w-full h-full bg-white shadow-[0_0_32px_rgba(0,0,0,0.24)]'>
 					<div className="h-full grid grid-cols-1 grid-rows-[auto_1fr] w-full">
@@ -412,7 +414,7 @@ export default function CustomPostCellEditor({
 									</div>
 								) : (
 									<div className='p-4'>
-										{HTMLReactParser(content) as ReactNode}
+										{HTMLReactParser(content || '') as ReactNode}
 									</div>
 								)
 							}

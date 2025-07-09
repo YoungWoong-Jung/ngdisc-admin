@@ -17,7 +17,7 @@ RUN npm install
 COPY . .
 
 # 이 컨테이너가 사용할 포트를 지정합니다.
-EXPOSE 4600
+EXPOSE 4500
 
 # 개발 모드로 실행
 CMD ["npm", "run", "dev"]

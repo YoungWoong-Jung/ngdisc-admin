@@ -1,6 +1,4 @@
 
-import fetch from "cross-fetch";
-import { redirect } from "next/navigation";
 import toast from "./toast";
 
 // 각 URL별 마지막 요청 시간을 저장하는 객체

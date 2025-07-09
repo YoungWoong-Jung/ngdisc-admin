@@ -10,10 +10,12 @@ import API from "@/util/API"
 import Fetcher from "@/util/Fetcher"
 import Random from "@/util/random"
 import toast from "@/util/toast"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import useSWR, { SWRResponse } from "swr"
 
 export default function Ticket () {
+
+    const [isMounted, setIsMounted] = useState(false)
 
     const {data: testCates, mutate: mutateTestCates}: SWRResponse<test_cate[]> = useSWR('/admin-api/test/testCates', Fetcher)
     const {data:testClassifies, mutate: mutateTestClassifies}: SWRResponse<etccd[]> = useSWR('/admin-api/core/code?etccd_type=test&etccd_subcate=classify', Fetcher)
@@ -139,6 +141,12 @@ export default function Ticket () {
             toast('저장에 실패했습니다. 잠시 후 다시 시도해주세요')
         }
     }
+
+    useEffect(() => {
+        setIsMounted(true)
+    }, [])
+
+    if(!isMounted) return null
 
     return <>
         <div className="w-full h-full p-4 grid grid-rows-[auto_1fr_1fr] grid-cols-1 gap-3">
